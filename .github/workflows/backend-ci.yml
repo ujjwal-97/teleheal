@@ -1,4 +1,4 @@
-name: Backend CI
+name: Backend-CI
 
 on:
   push:
@@ -14,7 +14,7 @@ on:
 
 jobs:
   backend-ci:
-    name: Backend CI
+    name: Backend-CI
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -30,8 +30,8 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
 
-      - name: Make GHA script executable
-        run: chmod +x scripts/gha-smart-ci.sh
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
 
       - name: Validate and build backend
         id: build
@@ -46,14 +46,14 @@ jobs:
           path: teleheal-backend/build/libs/
           retention-days: 1
 
-      - name: Publish Test Report
-        uses: EnricoMi/publish-unit-test-result-action@v2
-        if: always()
-        with:
-          junit_files: "**/teleheal-backend/build/test-results/test/TEST-*.xml"
-          check_name: "Backend Test Results"
-          comment_mode: "always"
-          fail_on: "nothing"
-          report_individual_runs: true
-          check_run_annotations: "all tests"
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+#      - name: Publish Test Report
+#        uses: EnricoMi/publish-unit-test-result-action@v2
+#        if: always()
+#        with:
+#          junit_files: "**/teleheal-backend/build/test-results/test/TEST-*.xml"
+#          check_name: "Backend Test Results"
+#          comment_mode: "always"
+#          fail_on: "nothing"
+#          report_individual_runs: true
+#          check_run_annotations: "all tests"
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
