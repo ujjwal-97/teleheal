@@ -23,6 +23,13 @@ jobs:
           name: backend-jar
           path: libs/
 
+      - name: List downloaded files (debug)
+        run: |
+          echo "Contents of current directory:"
+          ls -la
+          echo "Contents of libs directory:"
+          ls -la libs/ || echo "libs directory not found"
+
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
