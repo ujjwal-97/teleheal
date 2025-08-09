@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./teleheal-backend
+      dockerfile: Dockerfile
+    container_name: teleheal-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+    networks:
+      - vc-network
+
+  frontend:
+    build:
+      context: ./teleheal-ui
+      dockerfile: Dockerfile
+    container_name: teleheal-frontend
+    ports:
+      - "9000:9000"
+    environment:
+      - VITE_API_BASE_URL=http://localhost:8080/api
+    depends_on:
+      - backend
+    networks:
+      - vc-network
+
+networks:
+  vc-network:
+    driver: bridge
