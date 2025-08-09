@@ -8,13 +8,13 @@ This repository contains the **frontend** (React) and **backend** (Spring Boot) 
 
 ```
 mono-repo-virtual-consultation/
-├── backend/     # Spring Boot backend service (Maven project)
-├── frontend/    # React frontend (Vite project)
+├── teleheal-backend/     # Spring Boot backend service (Gradle project)
+├── teleheal-ui/    # React frontend (Vite project)
 ├── .gitignore   # Global ignores (shared across modules)
 └── README.md    # Project documentation
 ```
 
-Both `backend/` and `frontend/` also have their own `.gitignore` files for stack-specific ignores.
+Both `teleheal-backend/` and `teleheal-ui/` also have their own `.gitignore` files for stack-specific ignores.
 
 ---
 
@@ -22,31 +22,31 @@ Both `backend/` and `frontend/` also have their own `.gitignore` files for stack
 
 ### Prerequisites
 
-* **Java 17+** & Maven (for backend)
+* **Java 24** & Gradle (for backend)
 * **Node.js 16+** & npm/yarn (for frontend)
 
 ### Backend Setup
 
 ```bash
-cd backend
+cd teleheal-backend
 mvn spring-boot:run
 ```
 
-The backend will start at **[http://localhost:8080](http://localhost:8080)**.
+The teleheal-backend will start at **[http://localhost:8080](http://localhost:8080)**.
 
 ### Frontend Setup
 
 ```bash
-cd frontend
+cd teleheal-ui
 npm install
 npm run dev
 ```
 
-The frontend will start at **[http://localhost:5173](http://localhost:5173)** and proxy API calls to the backend.
+The teleheal-backend will start at **[http://localhost:9000](http://localhost:5173)** and proxy API calls to the backend.
 
 ---
 
-## 🛠 Features (POC)
+## 🛠 Features
 
 * Basic health check endpoint (`/api/health`)
 * Simple frontend page calling backend
@@ -63,17 +63,4 @@ docker-compose up --build
 
 This will start both backend and frontend containers.
 
----
 
-## 📄 License
-
-This project is licensed under the MIT License — see the LICENSE file for details.
-
----
-
-## 📝 Next Steps
-
-* Add authentication & user management
-* Implement consultation flows (chat/video)
-* Add prescription creation & S3 storage
-* Build patient/doctor dashboards
