@@ -31,13 +31,11 @@ jobs:
         uses: gradle/gradle-build-action@v2
 
       - name: Make gradlew executable
-        run: chmod +x ./gradlew
+        run: chmod +x ./teleheal-backend/gradlew
 
       - name: Validate and build backend
         id: build
-        run: |
-          ./scripts/gha-smart-ci.sh validate backend
-          ./scripts/gha-smart-ci.sh build backend
+        run: ./teleheal-backend/gradlew
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4

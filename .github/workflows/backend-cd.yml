@@ -21,7 +21,7 @@ jobs:
           workflow: backend-ci.yml
           workflow_conclusion: success
           name: backend-jar
-          path: backend-build
+          path: teleheal-backend/build/libs/
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3
@@ -33,7 +33,7 @@ jobs:
         run: |
           echo "FROM openjdk:24-jdk-slim" > Dockerfile
           echo "WORKDIR /app" >> Dockerfile
-          echo "COPY backend-build/teleheal-backend-0.0.1-SNAPSHOT.jar app.jar" >> Dockerfile    
+          echo "COPY teleheal-backend/build/libs/teleheal-backend-0.0.1-SNAPSHOT.jar app.jar" >> Dockerfile    
           echo "EXPOSE 8080" >> Dockerfile
           echo 'CMD ["java", "-jar", "app.jar"]' >> Dockerfile    
 
