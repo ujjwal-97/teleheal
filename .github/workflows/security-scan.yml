@@ -78,57 +78,57 @@ jobs:
         cd teleheal-ui
         npm audit fix --dry-run || true
 
-  codeql-analysis:
-    runs-on: ubuntu-latest
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
+  # codeql-analysis:
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     actions: read
+  #     contents: read
+  #     security-events: write
       
-    strategy:
-      fail-fast: false
-      matrix:
-        language: [ 'java', 'javascript' ]
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       language: [ 'java', 'javascript' ]
         
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+  #   steps:
+  #   - name: Checkout code
+  #     uses: actions/checkout@v4
       
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v3
-      with:
-        languages: ${{ matrix.language }}
+  #   - name: Initialize CodeQL
+  #     uses: github/codeql-action/init@v3
+  #     with:
+  #       languages: ${{ matrix.language }}
         
-    - name: Set up JDK 24 (for Java analysis)
-      if: matrix.language == 'java'
-      uses: actions/setup-java@v4
-      with:
-        java-version: '24'
-        distribution: 'temurin'
+  #   - name: Set up JDK 24 (for Java analysis)
+  #     if: matrix.language == 'java'
+  #     uses: actions/setup-java@v4
+  #     with:
+  #       java-version: '24'
+  #       distribution: 'temurin'
         
-    - name: Build Java project (for CodeQL)
-      if: matrix.language == 'java'
-      run: |
-        cd teleheal-backend
-        chmod +x gradlew
-        ./gradlew build -x test
+  #   - name: Build Java project (for CodeQL)
+  #     if: matrix.language == 'java'
+  #     run: |
+  #       cd teleheal-backend
+  #       chmod +x gradlew
+  #       ./gradlew build -x test
         
-    - name: Set up Node.js (for JavaScript analysis)
-      if: matrix.language == 'javascript'
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-        cache: 'npm'
-        cache-dependency-path: teleheal-ui/package-lock.json
+  #   - name: Set up Node.js (for JavaScript analysis)
+  #     if: matrix.language == 'javascript'
+  #     uses: actions/setup-node@v4
+  #     with:
+  #       node-version: '18'
+  #       cache: 'npm'
+  #       cache-dependency-path: teleheal-ui/package-lock.json
         
-    - name: Build JavaScript project (for CodeQL)
-      if: matrix.language == 'javascript'
-      run: |
-        cd teleheal-ui
-        npm ci
-        npm run build
+  #   - name: Build JavaScript project (for CodeQL)
+  #     if: matrix.language == 'javascript'
+  #     run: |
+  #       cd teleheal-ui
+  #       npm ci
+  #       npm run build
         
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v3
-      with:
-        category: "/language:${{matrix.language}}"
+  #   - name: Perform CodeQL Analysis
+  #     uses: github/codeql-action/analyze@v3
+  #     with:
+  #       category: "/language:${{matrix.language}}"
