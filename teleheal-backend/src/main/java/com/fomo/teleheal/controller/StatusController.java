@@ -1,7 +1,11 @@
 package com.fomo.teleheal.controller;
 
+import org.slf4j.ILoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +19,7 @@ import java.util.Map;
 @RequestMapping("/api")
 public class StatusController {
 
+    private static final Logger log = LoggerFactory.getLogger(StatusController.class);
     @Value("${spring.application.name:teleheal-backend}")
     private String applicationName;
 
@@ -22,7 +27,9 @@ public class StatusController {
     private String serverPort;
 
     @GetMapping("/status")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<Map<String, Object>> getStatus() {
+        log.info("status check alert!");
         Map<String, Object> status = new HashMap<>();
         
         status.put("service", applicationName);
@@ -55,6 +62,7 @@ public class StatusController {
     }
 
     @GetMapping("/health")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<Map<String, String>> getHealth() {
         Map<String, String> health = new HashMap<>();
         health.put("status", "UP");
